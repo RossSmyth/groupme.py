@@ -3,7 +3,10 @@ Group Me Python API
 
 ##Things to do:
 - [ ] Make objects
-**In progress
+
+* ###In progress
+
+
 - [ ] Learn [asyncio](https://docs.python.org/3/library/asyncio.html) some more
 - [ ] Learn [aiohttp](http://aiohttp.readthedocs.io/en/stable/) some more
 - [ ] Make things go to Group Me
