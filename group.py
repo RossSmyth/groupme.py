@@ -1,5 +1,6 @@
+from .object import Object
 
-class Group:
+class Group(Object):
 	"""Represents a Group Me group.
 	
 	Supported Operations:
@@ -56,7 +57,6 @@ class Group:
 		self.created_at = kwargs.pop('created_at')
 		self.description = kwargs.pop('description')
 		self.image_url = kwargs.pop('image_url')
-		self.id = kwargs.pop('id')
 		self.max_members = kwargs.pop('max_members')
 		self.name = kwargs.pop('name')
 		self.office_mode = kwargs.pop('office_mode')
@@ -67,20 +67,6 @@ class Group:
 		
 		self._members = kwargs.pop('members')
 		self._messages = kwargs.pop('messages')
-		
-	def __eq__(self, other):
-		return isinstance(other, self.__class__) and other.id == self.id
-		
-	def __ne__(self, other):
-		if isinstance(other, self.__class__):
-			return other.id != self.id
-		return True
-		
-	def __hash__(self):
-		return hash(self.id)
-		
-	def __str__(self):
-		return self.name
 		
 	@property
 	def members(self):
