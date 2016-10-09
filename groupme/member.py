@@ -37,6 +37,7 @@ class Member(Object):
 		]
 		
 	def __init__(self, **kwargs):
+	
 		super(Member, self).__init__(**kwargs)
 		self.autokicked = kwargs.pop('autokicked')
 		self.image_url = kwargs.pop('image_url')
