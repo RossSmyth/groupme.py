@@ -80,6 +80,12 @@ class Message(Base):
 		The name of the author
 	created_at : int
 		Unix time-stamp when the message was created
+	favorite_by : list
+		list of member IDs that have favorite the message
+	group : :class:`Group`
+		The group the message is from
+	source_guid : str
+		The GUID from the message's author's client
 	text : str
 		The Message's contents
 	"""
@@ -89,7 +95,15 @@ class Message(Base):
 	def __init__(self, **kwargs):
 		super(Message, self).__init__(**kwargs)
 		
-		author_id = kwargs.pop('user_id')
+		author_id = kwargs.pop('sender_id')
 		author_name = kwargs.pop('name')
 		author_avatar = kwargs.pop('avatar_url')
+		author_type = kwargs.pop('sender_type')
+		author_user_id = kwargs.pop('user_id')
+		self.author = Member(**id=author_id, image_url=author_avatar,
+							nickname=author_name, autokicked=None, muted=None,
+							user_id=author_user_id)
 		
+		self.favorite_by = kwargs.pop('favorite_by')
+		self.group = self._get_group(kwargs.pop('group_id')
+		self.source_guid = kwargs.pop('source_guid')
