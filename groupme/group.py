@@ -76,8 +76,8 @@ class Group(Object):
 		self.office_mode = kwargs.pop('office_mode')
 		self.phone_number = kwargs.pop('phone_number')
 		self.preview = Preview(**_messages['preview'],
-						id=_messages['last_message_id']),
-						created_at=_messages['last_message_created_at']
+						id=_messages['last_message_id'],
+						created_at=_messages['last_message_created_at'])
 		self.share_url = kwargs.pop('share_url')
 		self.type = kwargs.pop('type')
 		self.updated_at = kwargs.pop('updated_at')
