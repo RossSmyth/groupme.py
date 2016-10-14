@@ -44,4 +44,3 @@ class Member(Object):
 		self.muted = kwargs.pop('muted')
 		self.name = kwargs.pop('nickname')
 		self.user_id = kwargs.pop('user_id')
-		

@@ -7,15 +7,16 @@ class Base(Object):
 	__slots__ = []
 	
 	def __init__(self, **kwargs):
+	
 		super(Base, self).__init__(**kwargs)
 		
-		self.attachments = self._attachments(kwargs.pop['attachments'])
-		self.author = kwargs.pop('nickname')
+		self.attachments = self._attachments(kwargs.pop('attachments'))
 		self.created_at = kwargs.pop('created_at')
 		self.text = kwargs.pop('text')
 	
 	def _attachments(self, attachments):
 		"""TEMPORARY UNTIL ATTACHMENT OBJECTS ARE BUILT"""
+		
 		return attachments
 	
 	def __str__(self):
@@ -57,8 +58,10 @@ class Preview(Base):
 				]
 	
 	def __init__(self, **kwargs):
+
 		super(Preview, self).__init__(**kwargs)
 		
+		self.author = kwargs.pop('nickname')
 		self.author_image = kwargs.pop('author_image')
 
 class Message(Base):
@@ -99,11 +102,12 @@ class Message(Base):
 	"""
 	
 	__slots__ = [
-				'attachments', 'author', 'created_at', 'favorite_by', 'group',
+				'attachments', 'author', 'created_at', 'favorited_by', 'group',
 				'id', 'source_guid', 'text'
 				]
 	
 	def __init__(self, **kwargs):
+		
 		super(Message, self).__init__(**kwargs)
 		
 		author_id = kwargs.pop('sender_id')
@@ -115,10 +119,11 @@ class Message(Base):
 							nickname=author_name, autokicked=None, muted=None,
 							user_id=author_user_id)
 		
-		self.favorite_by = kwargs.pop('favorite_by')
+		self.favorited_by = kwargs.pop('favorited_by')
 		self.group = self._get_group(kwargs.pop('group_id'))
 		self.source_guid = kwargs.pop('source_guid')
 
 	def _get_group(self, group_id):
 		"""TEMPORARY UNTIL AIOHTTP STUFF IS BUILT"""
+
 		return group_id
