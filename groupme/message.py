@@ -14,6 +14,10 @@ class Base(Object):
 		self.created_at = kwargs.pop('created_at')
 		self.text = kwargs.pop('text')
 	
+	def _attachments(self, attachments):
+		"""TEMPORARY UNTIL ATTACHMENT OBJECTS ARE BUILT"""
+		return attachments
+	
 	def __str__(self):
 		return self.text
 
