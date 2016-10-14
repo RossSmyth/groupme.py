@@ -118,3 +118,7 @@ class Message(Base):
 		self.favorite_by = kwargs.pop('favorite_by')
 		self.group = self._get_group(kwargs.pop('group_id'))
 		self.source_guid = kwargs.pop('source_guid')
+
+	def _get_group(self, group_id):
+		"""TEMPORARY UNTIL AIOHTTP STUFF IS BUILT"""
+		return group_id
