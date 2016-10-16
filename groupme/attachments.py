@@ -1,3 +1,4 @@
+from .member import Member
 
 class Base:
     """Represents a base Group Me attachment"""
@@ -12,15 +13,13 @@ class Emoji(Base):
 
     Supported Operations:
 
-    +-----------+---------------------------------------+
-	| Operation |             Description               |
-	+===========+=======================================+
-	| x == y    | Checks if two emojis are equal.       |
-	+-----------+---------------------------------------+
-	| x != y    | Checks if two emojis are not equal.   |
-	+-----------+---------------------------------------+
-	| str(x)    | Returns the emojis.                   |
-	+-----------+---------------------------------------+
+    +-----------+------------------------------------------------+
+	| Operation |             Description                        |
+	+===========+================================================+
+	| x == y    | Checks if two emoji attachments are equal.     |
+	+-----------+------------------------------------------------+
+	| x != y    | Checks if two emoji attachmentss are not equal.|
+	+-----------+------------------------------------------------+
 
 	Attributes
 	----------
@@ -50,10 +49,63 @@ class Emoji(Base):
             return self.charmap != other.charmap
         return True
 
-    def __str__(self):
-        """MAKE WHEN CHARMAPS ARE FIGURED OUT"""
+class Event(Base):
+    """Represents a Group Me image
 
-class Image:
+        Supported Operations:
+
+        +-----------+---------------------------------------+
+    	| Operation |             Description               |
+    	+===========+=======================================+
+    	| x == y    | Checks if two images are equal.       |
+    	+-----------+---------------------------------------+
+    	| x != y    | Checks if two images are not equal.   |
+    	+-----------+---------------------------------------+
+    	| hash(x)   | Returns the image's hash              |
+    	+-----------+---------------------------------------+
+    	| str(x)    | Returns the image's URL.              |
+    	+-----------+---------------------------------------+
+
+    	Attributes
+    	----------
+    	author : :class:`Member`
+    	    The person who made the calander even
+    	id : str
+    	    The unique ID of the event
+    	name : str
+    	    The name of the event
+        type : str
+            The type of the attachment
+        url : str
+            The URL of the image
+        view : str
+            Not sure yet
+    	"""
+
+    __slots__ = [
+                'author', 'id', 'name', 'type', 'url', 'view'
+                ]
+
+    def __init__(self, **kwargs):
+        super(Event, self).__init__(**kwargs)
+
+        _event = kwargs.pop('event').pop('data')
+
+        author = {}
+        author['user_id'] = kwargs['user'].pop('id')
+        author['nickname'] = kwargs.pop('user').pop('nickname')
+        author['autokicked'] = None
+        author['image_url'] = None
+        author['muted'] = None
+        author['id'] = None
+
+        self.author = Member(**author)
+        self.id = kwargs.pop('event_id')
+        self.name = _event.pop('event').pop('name')
+        self.url = _event.pop('url')
+        self.view = kwargs.pop('view')
+
+class Image(Base):
     """Represents a Group Me image
 
     Supported Operations:
@@ -61,9 +113,9 @@ class Image:
     +-----------+---------------------------------------+
 	| Operation |             Description               |
 	+===========+=======================================+
-	| x == y    | Checks if two imaages are equal.      |
+	| x == y    | Checks if two images are equal.       |
 	+-----------+---------------------------------------+
-	| x != y    | Checks if two imagess are not equal.  |
+	| x != y    | Checks if two images are not equal.   |
 	+-----------+---------------------------------------+
 	| hash(x)   | Returns the image's hash              |
 	+-----------+---------------------------------------+
@@ -101,6 +153,33 @@ class Image:
     def __str__(self):
         return self.url
 
+class Linked_image(Image):
+    """Represents a Group Me linked-image
+
+    Supported Operations:
+
+    +-----------+-------------------------------------------+
+    | Operation |             Description                   |
+    +===========+===========================================+
+    | x == y    | Checks if two linked-images are equal.    |
+    +-----------+-------------------------------------------+
+    | x != y    | Checks if two linked-images are not equal.|
+    +-----------+-------------------------------------------+
+    | hash(x)   | Returns the linked-image's hash           |
+    +-----------+-------------------------------------------+
+    | str(x)    | Returns the linked-image's URL.           |
+    +-----------+-------------------------------------------+
+
+    Attributes
+    ----------
+    type : str
+        The type of the attachment
+    url : str
+        The URL of the linked-image
+    """
+
+    def __init__(self, **kwargs):
+        super(Linked_image, self).__init__(**kwargs)
 
 class Location(Base):
     """Represents a Group Me location attachment
