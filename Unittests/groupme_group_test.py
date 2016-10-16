@@ -11,7 +11,7 @@ class group_test(unittest.TestCase):
 
     def setUp(self):
 
-        with open('test.txt') as test:
+        with open('test_group.txt') as test:
 
             example_json = json.load(test)['response']
 

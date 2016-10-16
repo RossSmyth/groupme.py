@@ -9,7 +9,7 @@ import groupme
 class message_test(unittest.TestCase):
 	
 	def setUp(self):
-		with open('test2.txt') as test:
+		with open('test_message.txt') as test:
 			example_json = json.load(test)['message']
 	
 		self.example_message_object = groupme.Message(**example_json)
