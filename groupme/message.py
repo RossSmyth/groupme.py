@@ -7,11 +7,11 @@ class Base(Object):
 	__slots__ = []
 	
 	def __init__(self, **kwargs):
-	
 		super(Base, self).__init__(**kwargs)
 		
 		self.attachments = self._attachments(kwargs.pop('attachments'))
 		self.created_at = kwargs.pop('created_at')
+		self.id = kwargs.pop('id')
 		self.text = kwargs.pop('text')
 	
 	def _attachments(self, attachments):
@@ -54,11 +54,11 @@ class Preview(Base):
 	"""
 	
 	__slots__ = [
-				'attachments', 'author', 'author_image', 'created_at', 'text'
+				'attachments', 'author', 'author_image', 'created_at', 'id',
+				'text'
 				]
 	
 	def __init__(self, **kwargs):
-
 		super(Preview, self).__init__(**kwargs)
 		
 		self.author = kwargs.pop('nickname')
@@ -95,6 +95,8 @@ class Message(Base):
 		The group the message is from
 	id : str
 		ID of the message
+	is_system : bool
+		Whether the author is the Group Me system
 	source_guid : str
 		The GUID from the message's author's client
 	text : str
@@ -103,24 +105,25 @@ class Message(Base):
 	
 	__slots__ = [
 				'attachments', 'author', 'created_at', 'favorited_by', 'group',
-				'id', 'source_guid', 'text'
+				'id', 'is_system', 'source_guid', 'text'
 				]
 	
 	def __init__(self, **kwargs):
-		
 		super(Message, self).__init__(**kwargs)
-		
-		author_id = kwargs.pop('sender_id')
-		author_name = kwargs.pop('name')
-		author_avatar = kwargs.pop('avatar_url')
-		author_type = kwargs.pop('sender_type')
-		author_user_id = kwargs.pop('user_id')
-		self.author = Member(id=author_id, image_url=author_avatar,
-							nickname=author_name, autokicked=None, muted=None,
-							user_id=author_user_id)
+
+		author = {}
+		author['nickname'] = kwargs.pop('name')
+		author['image_url'] = kwargs.pop('avatar_url')
+		author['user_id'] = kwargs.pop('user_id')
+		author['autokicked'] = None
+		author['muted'] = None
+		author['id'] = None
+
+		self.author = Member(**author)
 		
 		self.favorited_by = kwargs.pop('favorited_by')
 		self.group = self._get_group(kwargs.pop('group_id'))
+		self.is_system = kwargs.pop('system')
 		self.source_guid = kwargs.pop('source_guid')
 
 	def _get_group(self, group_id):

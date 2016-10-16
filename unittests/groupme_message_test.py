@@ -26,10 +26,6 @@ class message_test(unittest.TestCase):
 	def test_message_author_name(self):
 	
 		self.assertEqual(self.example_message_object.author.name, "Kira Frahm")
-		
-	def test_message_author_user_id(self):
-	
-		self.assertEqual(self.example_message_object.author.user_id, "30506935")
 	
 	def test_author_id(self):
 	
@@ -60,6 +56,10 @@ class message_test(unittest.TestCase):
 	def test_message_group(self):
 	
 		self.assertEqual(self.example_message_object.group, "25081074")
-		
+
+	def test_message_is_system(self):
+
+		self.assertEqual(self.example_message_object.is_system, False)
+
 if __name__ == '__main__':
 	unittest.main()
