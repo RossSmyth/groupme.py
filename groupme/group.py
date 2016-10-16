@@ -54,13 +54,12 @@ class Group(Object):
 		Unix time-stamp of when the group was updated last	
 	"""
 	__slots__ = [
-		'count', 'created_at', 'description', 'image_url', 'id', 'max_members',
-		'members', 'messages', 'name', 'office_mode',
-		'phone_number', 'preview' 'share_url', 'type', 'updated_at'
-		]
+				'count', 'created_at', 'description', 'image_url', 'id',
+				'max_members', 'members', 'messages', 'name', 'office_mode',
+				'phone_number', 'preview', 'share_url', 'type', 'updated_at'
+				]
 	
 	def __init__(self, **kwargs):
-		
 		super(Group, self).__init__(**kwargs)
 		
 		_members = kwargs.pop('members')
@@ -77,7 +76,8 @@ class Group(Object):
 		self.phone_number = kwargs.pop('phone_number')
 		self.preview = Preview(**_messages['preview'],
 						id=_messages['last_message_id'],
-						created_at=_messages['last_message_created_at'])
+						created_at=_messages['last_message_created_at'],
+						author_image=_messages['preview']['image_url'])
 		self.share_url = kwargs.pop('share_url')
 		self.type = kwargs.pop('type')
 		self.updated_at = kwargs.pop('updated_at')
