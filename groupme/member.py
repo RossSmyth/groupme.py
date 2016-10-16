@@ -20,9 +20,9 @@ class Member(Object):
 	Attributes
 	----------
 	autokicked : bool
-		Wether the member is automatically kicked or not
+		Whether the member is automatically kicked or not
 	id : str
-		The ID of the member
+		The unique ID of the member
 	image_url : str
 		URL of the member's avatar
 	muted : bool
@@ -30,17 +30,18 @@ class Member(Object):
 	name : str
 		The name of the member
 	user_id : str
-		The ID of the user
+		The ID in that group of the user
 	"""
 	__slots__ = [
-		'autokicked', 'id', 'image_url', 'muted', 'name', 'user_id'
-		]
+				'autokicked', 'id', 'image_url', 'muted', 'name', 'user_id'
+				]
 		
 	def __init__(self, **kwargs):
-	
 		super(Member, self).__init__(**kwargs)
+
 		self.autokicked = kwargs.pop('autokicked')
+		self.id = kwargs.pop('user_id')
 		self.image_url = kwargs.pop('image_url')
 		self.muted = kwargs.pop('muted')
 		self.name = kwargs.pop('nickname')
-		self.user_id = kwargs.pop('user_id')
+		self.user_id = kwargs.pop('id')
