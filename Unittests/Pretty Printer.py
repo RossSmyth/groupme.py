@@ -1,9 +1,10 @@
 #To pretty print the json packets easily
 
 import json
+from glob import glob
 from pprint import pprint
 
-files = ['test_attachments.txt', 'test_group.txt', 'test_message.txt']
+files = glob('*.txt')
 
 print('Key : File\n----------')
 
