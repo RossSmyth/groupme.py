@@ -1,11 +1,10 @@
 import unittest
-import sys
+import os
 import json
 
-sys.path.append("D:\\Libraries\\Documents\GitHub\\groupme.py\\")
-
+os.chdir('..')
 import groupme
-
+os.chdir('Unittests')
 
 class group_test(unittest.TestCase):
 

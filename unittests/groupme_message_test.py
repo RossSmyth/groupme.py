@@ -2,9 +2,9 @@ import unittest
 import sys
 import json
 
-sys.path.append("D:\\Libraries\\Documents\GitHub\\groupme.py\\")
-
+os.chdir('..')
 import groupme
+os.chdir('Unittests')
 
 class message_test(unittest.TestCase):
 	
