@@ -23,7 +23,9 @@ class Object:
 	id : str
 		The ID of the object
 	"""
-	__slots__ = []
+	__slots__ = [
+				'id'
+				]
 	
 	def __init__(self, **kwargs):
 		self.id = kwargs.pop('id')
